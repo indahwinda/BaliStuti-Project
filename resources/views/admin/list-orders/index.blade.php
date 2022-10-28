@@ -14,6 +14,7 @@
                             <th>#</th>
                             <th>Order Id</th>
                             <th>Status</th>
+                            <th>Payment Status</th>
                             <th>Tracking No</th>
                             <th>Total Price</th>
                             <th>Order Date</th>
@@ -26,16 +27,34 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$order->id}}</td>
                             <td>
-                                @if($order->status == 0)
-                                    <span class="badge badge-sm bg-gradient-warning">Pending</span>
-                                @elseif($order->status == 1)
-                                    <span class="badge badge-sm bg-gradient-success">Confirmed</span>
-                                @elseif($order->status == 3)
-                                    <span class="badge badge-sm bg-gradient-danger">Cancelled</span>
-                                @elseif ($order->status == 4)
+                                {{-- <span class="badge badge-sm bg-gradient-warning">{{$order->status}}</span> --}}
+                                @if ($order->status == 'pending')
+                                    <span class="badge badge-sm bg-gradient-warning">{{ $order->status }}</span>
+                                @elseif($order->status == 'settlement' || $order->status == 'capture' || $order->status == 'paid')
+                                    <span class="badge badge-sm bg-gradient-success">{{ $order->status }}</span>
+                                @elseif($order->status == 'deny' || $order->status == 'cancel' || $order->status == 'expire')
+                                    <span class="badge badge-sm bg-gradient-danger">{{ $order->status }}</span>
+                                {{-- @elseif ($order->status == "shipped")
                                     <span class="badge badge-sm bg-gradient-info">Shipped</span>
                                 @elseif ($order->status == 5)
-                                    <span class="badge badge-sm bg-gradient-primary">Delivered</span>
+                                    <span class="badge badge-sm bg-gradient-primary">Delivered</span> --}}
+                                @endif
+                            </td>
+                            <td>
+                                @if (!empty($order->payment->payment_status))
+                                    @if ($order->payment->payment_status == 'approved')
+                                        <span class="badge badge-sm bg-gradient-success">Approved</span>
+                                    @elseif($order->payment->payment_status == null)
+                                        <span class="badge badge-sm bg-gradient-warning">Pending</span>
+                                    @elseif($order->payment->payment_status == 3)
+                                        <span class="badge badge-sm bg-gradient-danger">Cancelled</span>
+                                    @elseif ($order->payment->payment_status == 4)
+                                        <span class="badge badge-sm bg-gradient-info">Shipped</span>
+                                    @elseif ($order->payment->payment_status == 5)
+                                        <span class="badge badge-sm bg-gradient-primary">Delivered</span>
+                                    @endif
+                                @else
+                                    <span class="badge badge-sm bg-gradient-warning">Pending</span>
                                 @endif
                             </td>
                             <td>{{$order->tracking_no}}</td>
@@ -43,7 +62,7 @@
                             <td>{{$order->created_at}}</td>
                             <td>
                                 <a href="\view-order\{{$order->id}}" class="btn btn-primary">View</a>
-                                <a href="" data-id ="{{$order->id}}" data-bs-toggle="modal" data-bs-target="#order" class="btn btn-success">Update</a>
+                                <a href="" data-id ="{{$order->id}}" data-bs-toggle="modal" data-bs-target="#order" class="btn btn-success">Manage Order</a>
                             </td>
                         </tr>
                         @endforeach

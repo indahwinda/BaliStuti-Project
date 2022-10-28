@@ -1,3 +1,7 @@
+@inject('company','App\Models\Company' )
+@php
+  $array = $company->getCompanyData();
+@endphp
 <footer class="footer ">
     <div class="footer-top">
         <div class="container">
@@ -6,11 +10,10 @@
                     <!-- Single Widget -->
                     <div class="single-footer about">
                         <div class="logo-footer">
-                            {{-- <i class="fa-solid fa-hat-wizard fa-2x"></i><span class="logo">{{App\Models\Company::find(1)->name}}</span> --}}
-                            <img src="{{asset('assets/logo/'. App\Models\Company::find(1)->logo)}}" alt="{{App\Models\Company::find(1)->name}}" style="width:40%">
+                            <img src="{{asset('assets/logo/'.$array['logo'])}}" alt="{{$array['name']}}" style="width:40%">
                         </div>
-                        <p class="text">{{App\Models\Company::find(1)->description}}.</p>
-                        <p class="call">Got Question? Call us 24/7<span><a href="tel: {{App\Models\Company::find(1)->phone }} ">{{App\Models\Company::find(1)->phone}}</a></span></p>
+                        <p class="text">{{$array['description']}}.</p>
+                        <p class="call">Got Question? Call us 24/7<span><a href="tel: {{$array['phone'] }} ">{{$array['phone']}}</a></span></p>
                     </div>
                     <!-- End Single Widget -->
                 </div>
@@ -48,10 +51,10 @@
                         <!-- Single Widget -->
                         <div class="contact">
                             <ul>
-                                <li>{{App\Models\Company::find(1)->address}}</li>
+                                <li>{{$array['address']}}</li>
                                 <li>Indonesia.</li>
-                                <li>{{App\Models\Company::find(1)->email}}</li>
-                                <li>{{App\Models\Company::find(1)->phone}}</li>
+                                <li>{{$array['email']}}</li>
+                                <li>{{$array['phone']}}</li>
                             </ul>
                         </div>
                         <!-- End Single Widget -->

@@ -3,10 +3,16 @@
 
 @section('content')
 
+<div class="hero-image">
+    <div class="hero-text">
+        <img src="{{asset('assets/logo/'. $company->logo)}}" alt="{{$company->name}}" >
+    </div>
+</div> 
+
 <!------------------------------------------
 SLIDER
 ------------------------------------------->
-{{-- <section class="slider-section pt-4 pb-4">
+<section class="slider-section pt-4 pb-4">
     <div class="container">
         <div class="slider-inner">
             <div class="row">
@@ -29,21 +35,21 @@ SLIDER
                         </ol>
                         <div class="carousel-inner shadow-sm rounded">
                             <div class="carousel-item active">
-                                <img class="d-block w-100" src="./assets/img/banner/5209572.jpg" alt="First slide">
+                                <img class="d-block w-100" src="./assets/img/banner/wood1.jpg" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>Wood Craft</h5>
+                                    <h5 class="text-white">Wood Craft</h5>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="./assets/img/banner/5297703.jpg" alt="Second slide">
+                                <img class="d-block w-100" src="./assets/img/banner/fabric3.jpg" alt="Third slide">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>Silver Craft</h5>
+                                    <h5 class="text-white">Fabric Craft</h5>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block w-100" src="./assets/img/banner/5297703.jpg" alt="Third slide">
+                                <img class="d-block w-100" src="./assets/img/banner/silver2.jpg" alt="Third slide">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>Fabric Craft</h5>
+                                    <h5 class="text-white">Silver Craft</h5>
                                 </div>
                             </div>
                         </div>
@@ -53,15 +59,10 @@ SLIDER
             </div>
         </div>
     </div>
-</section> --}}
+</section>
 <!------------------------------------------
 END SLIDER
 ------------------------------------------->
-<div class="hero-image">
-    <div class="hero-text">
-        <img src="{{asset('assets/logo/'. App\Models\Company::find(1)->logo)}}" alt="{{App\Models\Company::find(1)->name}}" >
-    </div>
-</div> 
 {{-- Start Featured Products --}}
 <section class="products-grids trending pb-4  pt-4">
     <div class="container">

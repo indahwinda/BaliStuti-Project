@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
+   public function __construct()
+   { 
+      // IDR to USD rate
+      $apikey = env('CURRENCY_API_KEY');
+      $json = file_get_contents("https://free.currconv.com/api/v7/convert?q=IDR_USD&compact=ultra&apiKey={$apikey}");
+      $obj = json_decode($json, true);
+
+      $this->val = floatval($obj["IDR_USD"]);
+   }
    public function index()
    {
     $active = "dashboard";
@@ -27,7 +36,8 @@ class CustomerController extends Controller
       $active = "my_orders";
       $title= "My Orders";
       $orders = Order::where('user_id', auth()->user()->id)->get();
-      return view('customer.my_orders.index', compact('orders', 'title', 'active'));
+      $USD = $this->val;
+      return view('customer.my_orders.index', compact('orders', 'title', 'active', 'USD'));
    }
    public function viewOrder($id)
    {
@@ -35,5 +45,12 @@ class CustomerController extends Controller
       $active = "my_orders";
       $title= "My Orders";
       return view('customer.my_orders.view', compact('orders', 'title', 'active'));
+   }
+
+   public function request_product()
+   {
+      $active = "request_product";
+      $title= "Request Product";
+      return view('customer.request_product.index', compact('title','active'));
    }
 }

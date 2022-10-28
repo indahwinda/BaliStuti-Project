@@ -17,6 +17,10 @@ body, button, input, select, optgroup, textarea {
         padding-left: 0;
     }
 }
+
+.txt-accent1 {
+    color: #D29C32 !important;
+}
 /* Custome button */
 .bg-background-2{
     background-color: #2B2B2B;

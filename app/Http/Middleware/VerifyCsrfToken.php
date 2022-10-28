@@ -12,6 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        // Change to url of your Tripay callback endpoint
+        'http://e4d8-180-249-184-35.ap.ngrok.io/callback'
+
     ];
 }

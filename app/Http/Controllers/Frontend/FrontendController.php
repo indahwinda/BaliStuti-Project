@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
+use App\Models\Company;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,10 @@ class FrontendController extends Controller
       //    $product = Product::whereIn('id', $products)->latest()->take(4)->get();
       // // }
       // // dd($product);
-      $product =  \RecentlyViewed\Facades\RecentlyViewed::get(Product::class)->take(4);
-      return view('frontend.index', compact('category', 'featured_pro', 'new_pro', 'product'));
+      
+      $product =  \RecentlyViewed\Facades\RecentlyViewed::get(Product::class,4);
+      $company = Company::find(1);
+      return view('frontend.index', compact('category', 'featured_pro', 'new_pro', 'product', 'company'));
    }
    public function viewcategory($slug){
       $category = Categories::where('status', 1)->get();
@@ -61,6 +64,38 @@ class FrontendController extends Controller
    public function about()
    {
       return view('frontend.about');
+   }
+
+   public function filter_price(Request $request)
+   {
+      $category = Categories::where('status', 1)->get();
+      $cate = 0;
+      $product = $this->filterByPrice(
+         Product::where('status', 1)->orderBy('id','desc'),
+         [$request->min ?: 0, $request->max ?: 0]);
+      return view('frontend.products',compact('product','category','cate'));
+   }
+
+   public function filterByPrice( $query, $range)
+   {
+     
+    if (!$range[0] && !$range[1]) return $query->paginate(5);
+    
+    if ($range[0] && !$range[1]) {
+        return $query
+            ->where('selling_price', '>=', $range[0])
+            ->paginate(5);
+    }
+
+    if (!$range[0] && $range[1]) {
+        return $query
+            ->where('selling_price', '<=', $range[1])
+            ->paginate(5);
+    }
+
+    return $query
+        ->whereBetween('selling_price', $range)
+        ->paginate(5);
    }
    
 }

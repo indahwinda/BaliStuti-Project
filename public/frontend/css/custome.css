@@ -26,3 +26,7 @@
 .mystyle{
     background-color: #E7D8C9;
 }
+
+.dt-buttons {
+    display: none;
+}

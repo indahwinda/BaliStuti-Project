@@ -73,6 +73,11 @@
       var message = "<?php Print($message); ?>"; 
       Swal.fire("Error",message, "error");
   </script>
+  @elseif ($verified = session('verified'))
+  <script>
+      Swal.fire("Success","Account has been verified successfully !", "success");
+      
+  </script>
   @endif
   @include('layouts.inc.frontheader')
       

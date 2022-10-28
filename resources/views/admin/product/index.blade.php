@@ -60,8 +60,8 @@
                                     <img src="{{asset('assets/upload/product/'.$item->image)}}" alt="{{$item->image}}" class="cate-image">
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary" data-id="{{$item->id}}" data-cate_id="{{$item->cate_id}}" data-name="{{$item->name}}"  data-slug="{{$item->slug}}"  data-description="{{$item->description}}" data-small_description = "{{$item->small_description}}"
-                                    data-original_price = "{{$item->original_price}}" data-selling_price = "{{$item->selling_price}}"  data-status="{{$item->status}}"  data-qty="{{$item->qty}}" data-weight="{{$item->weight}}"  data-tax="{{$item->tax}}" data-trending="{{$item->trending}}"  data-meta_title="{{$item->meta_title}}"  data-meta_description="{{$item->meta_description}}"  data-meta_keywords="{{$item->meta_keywords}}"  data-image="{{$item->image}}" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
+                                    <button class="btn btn-primary" data-id="{{$item->id}}" data-cate_id="{{$item->cate_id}}" data-name="{{$item->name}}"  data-description="{{$item->description}}" data-small_description = "{{$item->small_description}}"
+                                    data-original_price = "{{$item->original_price}}" data-selling_price = "{{$item->selling_price}}"  data-status="{{$item->status}}"  data-qty="{{$item->qty}}" data-weight="{{$item->weight}}" data-trending="{{$item->trending}}"  data-meta_title="{{$item->meta_title}}"  data-meta_description="{{$item->meta_description}}"  data-meta_keywords="{{$item->meta_keywords}}"  data-image="{{$item->image}}" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
                                     <form action="{{url('delete-product')}}" method="POST" >
                                         @csrf
                                         <input type="hidden" name="id" value="{{$item->id}}">
@@ -107,10 +107,6 @@
                             <input type="text" class="form-control" name="name" id="name">
                         </div>
                         <div class="col-md-6">
-                            <label for="">Slug</label>
-                            <input type="text" class="form-control" name="slug" id="slug">
-                        </div>
-                        <div class="col-md-6">
                             <label for="">Description</label>
                             <input type="text" class="form-control" name="description" id="description">
                         </div>
@@ -133,10 +129,6 @@
                         <div class="col-md-6">
                             <label for="">Weight</label>
                             <input type="number" class="form-control" name="weight" id="weight">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">Tax</label>
-                            <input type="number" class="form-control" name="tax" id="tax">
                         </div>
                         <div class="col-md-3 mb-3"><br>
                             <label for="">Status</label>
@@ -195,12 +187,10 @@
             var id = $(e.relatedTarget).data('id');
             var cate_id = $(e.relatedTarget).data('cate_id');
             var name = $(e.relatedTarget).data('name');
-            var slug = $(e.relatedTarget).data('slug');
             var description = $(e.relatedTarget).data('description');
             var small_description = $(e.relatedTarget).data('small_description');
             var original_price = $(e.relatedTarget).data('original_price');
             var selling_price = $(e.relatedTarget).data('selling_price');
-            var tax = $(e.relatedTarget).data('tax');
             var qty = $(e.relatedTarget).data('qty');
             var weight = $(e.relatedTarget).data('weight');
             var meta_title = $(e.relatedTarget).data('meta_title');
@@ -209,12 +199,10 @@
             var image = $(e.relatedTarget).data('image');
             $('#id').val(id);
             $('#name').val(name);
-            $('#slug').val(slug);
             $('#description').val(description);
             $('#small_description').val(small_description);
             $('#original_price').val(original_price);
             $('#selling_price').val(selling_price);
-            $('#tax').val(tax);
             $('#qty').val(qty);
             $('#weight').val(weight);
             $('#meta_title').val(meta_title);

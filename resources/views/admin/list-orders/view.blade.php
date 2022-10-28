@@ -27,6 +27,23 @@
                                     <span class="badge badge-sm bg-gradient-primary">Delivered</span>
                                 @endif
                             </h5>
+                            <h5 class="text-end mt-2">Payment Status :
+                                @if (!empty($orders->payment->payment_status))
+                                    @if ($orders->payment->payment_status == 'approved')
+                                        <span class="badge badge-sm bg-gradient-success">Approved</span>
+                                    @elseif($orders->payment->payment_status == null)
+                                        <span class="badge badge-sm bg-gradient-warning">Pending</span>
+                                    @elseif($orders->payment->payment_status == 3)
+                                        <span class="badge badge-sm bg-gradient-danger">Cancelled</span>
+                                    @elseif ($orders->payment->payment_status == 4)
+                                        <span class="badge badge-sm bg-gradient-info">Shipped</span>
+                                    @elseif ($orders->payment->payment_status == 5)
+                                        <span class="badge badge-sm bg-gradient-primary">Delivered</span>
+                                    @endif
+                                @else
+                                    <span class="badge badge-sm bg-gradient-warning">Pending</span>
+                                @endif
+                            </h5>
                         </div>
                     </div>
                     <hr>
