@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
-<<<<<<< Updated upstream
-=======
 use App\Models\Company;
 use App\Models\Order;
->>>>>>> Stashed changes
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -23,22 +20,10 @@ class FrontendController extends Controller
       $category = Categories::where('status', 1)->get();
       $featured_pro = Product::where('status', 1)->where('trending', 1)->take(8)->get();
       $new_pro = Product::where('status', 1)->where('created_at', '>=', date('Y-m-d', strtotime('-30 days')))->take(8)->get();
-<<<<<<< Updated upstream
-      // $products = session()->get('products.recently_viewed');
-      // // dd($products);
-      // // for ($i=0; $i < count($products); $i++) 
-      // // { 
-      //    $product = Product::whereIn('id', $products)->latest()->take(4)->get();
-      // // }
-      // // dd($product);
-      $product =  \RecentlyViewed\Facades\RecentlyViewed::get(Product::class)->take(4);
-      return view('frontend.index', compact('category', 'featured_pro', 'new_pro', 'product'));
-=======
       
       $product =  \RecentlyViewed\Facades\RecentlyViewed::get(Product::class,4);
       $company = Company::find(1);
       return view('frontend.index', compact('category', 'featured_pro', 'new_pro', 'product', 'company'));
->>>>>>> Stashed changes
    }
    public function viewcategory($slug){
       $category = Categories::where('status', 1)->get();
@@ -103,8 +88,6 @@ class FrontendController extends Controller
    {
       return view('frontend.about');
    }
-<<<<<<< Updated upstream
-=======
 
    public function filter_price(Request $request)
    {
@@ -151,6 +134,5 @@ class FrontendController extends Controller
       $review->save();
       return redirect()->back()->with('status', 'Review added successfully');
    }
->>>>>>> Stashed changes
    
 }

@@ -1,3 +1,7 @@
+@inject('company','App\Models\Company' )
+@php
+  $array = $company->getCompanyData();
+@endphp
 
 <header class="header clearfix">
     <div class="top-bar d-none d-sm-block">
@@ -5,8 +9,8 @@
             <div class="row">
                 <div class="col-6 text-left">
                     <ul class="top-links contact-info">
-                        <li><i class="fa fa-envelope-o"></i> <a href="#">{{App\Models\Company::find(1)->email}}</a></li>
-                        {{-- <li><i class="fa fa-whatsapp"></i> +1 5589 55488 55</li> --}}
+                        <li><i class="fa fa-envelope-o"></i> <a href="#">{{$array['email']}}</a></li>
+                        <li><i class="fa fa-whatsapp"></i>{{$array['phone']}}</li>
                     </ul>
                 </div>
                 <div class="col-6 text-right">
@@ -45,8 +49,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-12 col-sm-6">
                     <a class="navbar-brand mr-lg-5" href="/">
-                        {{-- <i class="fa-solid fa-hat-wizard fa-2x"></i><span class="logo">{{App\Models\Company::find(1)->name}}</span> --}}
-                        <img src="{{asset('assets/logo/'. App\Models\Company::find(1)->logo)}}" alt="{{App\Models\Company::find(1)->name}}" >
+                        <img src="{{asset('assets/logo/'. $array['logo'])}}" alt="{{$array['name']}}" >
                     </a>
                 </div>
                 <div class="col-lg-7 col-12 col-sm-6">
@@ -64,8 +67,8 @@
                 <div class="col-lg-2 col-12 col-sm-6">
                     <div class="right-icons pull-right d-none d-lg-block">
                         <div class="single-icon wishlist">
-                            <a href="#"><i class="fa fa-heart fa-2x"></i></a>
-                            <span class="badge badge-danger">5</span>
+                            <a href="/whistlist"><i class="fa fa-heart fa-2x"></i></a>
+                            <span class="badge badge-danger">0</span>
                         </div>
                         <div class="single-icon shopping-cart">
                             <a href="/cart"><i class="fa fa-shopping-cart fa-2x"></i></a>
@@ -94,6 +97,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/list-products">Product</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/request-product">By Request</a>
                     </li>
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle bg-background-2" data-toggle="dropdown" href="#" aria-expanded="true">Pages</a>

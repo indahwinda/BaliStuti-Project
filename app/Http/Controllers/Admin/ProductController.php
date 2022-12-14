@@ -32,17 +32,15 @@ class ProductController extends Controller
         $product = new Product();
         $data = $request->validate([
             'cate_id' => 'required',
-            'slug' => 'required',
             'name' => 'required',
             'small_description' => 'required',
             'description' => 'required',
-            'original_price' => 'required', 
-            'selling_price' => 'required', 
+            'original_price' => 'required|min:0', 
+            'selling_price' => 'required|min:0', 
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
             'gallery' => 'required',
-            'qty' => 'required|numeric', 
-            'weight' => 'required|numeric',
-            'tax' => 'required|numeric', 
+            'qty' => 'required|numeric|min:0', 
+            'weight' => 'required|numeric|min:0',
             'meta_title' => 'required',
             'meta_keywords' => 'required',
             'meta_description' => 'required',
@@ -59,14 +57,12 @@ class ProductController extends Controller
         }
         $product->cate_id = $request->input('cate_id');
         $product->name = $request->input('name');
-        $product->slug = $request->input('slug');
         $product->small_description = $request->input('small_description');
         $product->description = $request->input('description');
         $product->original_price = $price_ori;
         $product->selling_price = $price_sell;
         $product->qty = $request->input('qty');
         $product->weight = $request->input('weight');
-        $product->tax = $request->input('tax');
         $product->status = $request->input('status') == TRUE? '1':'0';
         $product->trending = $request->input('trending') == TRUE? '1':'0';
         $product->meta_title = $request->input('meta_title');
@@ -92,16 +88,14 @@ class ProductController extends Controller
         $product = Product::find($id);
         $request->validate([
             'cate_id' => 'required',
-            'slug' => 'required|alpha',
             'name' => 'required',
             'small_description' => 'required',
             'description' => 'required',
-            'original_price' => 'required', 
-            'selling_price' => 'required', 
+            'original_price' => 'required|min:0', 
+            'selling_price' => 'required|min:0', 
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
-            'qty' => 'required|numeric', 
-            'weight' => 'required|numeric',
-            'tax' => 'required|numeric', 
+            'qty' => 'required|numeric|min:0', 
+            'weight' => 'required|numeric|min:0',
             'meta_title' => 'required',
             'meta_keywords' => 'required',
             'meta_description' => 'required',
@@ -146,14 +140,12 @@ class ProductController extends Controller
         try {
             $product->cate_id = $request->input('cate_id');
             $product->name = $request->input('name');
-            $product->slug = $request->input('slug');
             $product->small_description = $request->input('small_description');
             $product->description = $request->input('description');
             $product->original_price = $price_ori;
             $product->selling_price = $price_sell;
             $product->qty = $request->input('qty');
             $product->weight = $request->input('weight');
-            $product->tax = $request->input('tax');
             $product->status = $request->input('status') == TRUE? '1':'0';
             $product->trending = $request->input('trending') == TRUE? '1':'0';
             $product->meta_title = $request->input('meta_title');

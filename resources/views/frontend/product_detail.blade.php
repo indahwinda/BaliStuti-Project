@@ -43,7 +43,7 @@
                 <div class="product-detail">
                     <h2 class="product-name">{{$product->name}}</h2>
                     <div class="product-price">
-                        <span class="price bg-ascend1">Rp{{number_format($product->selling_price,2,',','.') }}</span><span class="price-muted">Rp{{number_format($product->original_price,2,',','.') }}</span>
+                        <span class="price txt-accent1">Rp{{number_format($product->selling_price,2,',','.') }}</span><span class="price-muted">Rp{{number_format($product->original_price,2,',','.') }}</span>
                     </div>
                     <div class="product-short-desc">
                         <p>

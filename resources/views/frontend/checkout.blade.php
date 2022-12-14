@@ -165,7 +165,7 @@
                             @endforeach
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>Ongkir</p>
+                                    <p>Delivery Fee</p>
                                     <small class="ongkir-final">-</small>
                                 </div>
                                 <div class="col-md-6">
@@ -233,8 +233,9 @@
             Swal.fire({
                 title: 'Please wait',
                 html: 'Looking for the best delivery service',
-                timer: 5000,
+                timer: 4000,
                 timerProgressBar: true,
+                allowOutsideClick: false,
                 didOpen: () => {
                     Swal.showLoading()
                 },
@@ -300,11 +301,27 @@
             $('#total_orders').val(total_final);
             const rupiah = new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(total_final);
             $('.total-final').text(rupiah);
+            $('#total-final-hidden').val(total_final);
             var courier = $(e.relatedTarget).data('courier');
         });
 
         $('#submit').on('click', function (e) {
             e.preventDefault();
+            Swal.fire({
+                title: 'Checking...',
+                html: 'Please wait',
+                timer: 4000,
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                    
+                },
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                       
+                    }
+            })
             let ongkir = $('#ongkir').find(':selected').data('ongkir');
             let total_biaya = "<?php echo $total; ?>";
             let total_final = parseInt(ongkir) + parseInt(total_biaya);
@@ -340,7 +357,9 @@
                             title: 'Success',
                             text: 'Your order has been placed',
                         });
-                        window.location.href = "/";
+                        setTimeout(function() {
+                                window.location.href = "view-payment";
+                        }, 500);
                     }
                     else
                     {

@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\Payment\TripayCallbackController;
+use App\Http\Controllers\PayPal\PaymentController;
+use App\Http\Controllers\Tripay\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Auth;
@@ -23,11 +27,15 @@ Auth::routes(['verify' =>true]);
 
 Route::get('/', 'Frontend\FrontendController@index');
 Route::get('/list-products', 'Frontend\FrontendController@products');
+// Filter price
+Route::post('/filter_price', 'Frontend\FrontendController@filter_price');
 Route::get('/product_detail/{id}', 'Frontend\FrontendController@product_detail');
 Route::get('/search', 'Frontend\FrontendController@search');
 Route::get('/viewcategory/{slug}', 'Frontend\FrontendController@viewcategory');
 Route::get('/about', 'Frontend\FrontendController@about');
 
+Route::post('callback',[TripayCallbackController::class,'handle']);
+Route::get('/request-product', 'Frontend\CustomProductController@index');
 
 Route::middleware(['verified','auth','isAdmin'])->group(function()
 {
@@ -50,8 +58,6 @@ Route::middleware(['verified','auth','isAdmin'])->group(function()
     Route::post('/mark-as-read', 'Admin\FrontendController@markNotification')->name('markNotification');
     Route::post('/update-profile', 'Admin\ProfileCompanyController@updateProfile');
     Route::post('/update-company', 'Admin\ProfileCompanyController@updateCompany');
-<<<<<<< Updated upstream
-=======
     Route::get('/history', 'Admin\HistoryController@index');
 
     Route::get('/list-customs', 'Admin\CustomProductController@index');
@@ -59,7 +65,6 @@ Route::middleware(['verified','auth','isAdmin'])->group(function()
     //update status custom product
     Route::post('/update-custom', 'Admin\CustomProductController@updateLink');
     Route::post('/update-custom-status', 'Admin\CustomProductController@updateStatus');
->>>>>>> Stashed changes
 });
 
 Route::middleware(['verified','auth'])->group(function()
@@ -67,7 +72,7 @@ Route::middleware(['verified','auth'])->group(function()
     Route::get('user_dashboard', 'Customer\CustomerController@index');
     Route::get('/profile-information', 'Customer\ProfileController@index');
     Route::post('/update-info', 'Customer\ProfileController@updateProfile');
-    Route::get('/my-orders', 'Customer\CustomerController@my_orders');
+    Route::get('/my-orders', 'Customer\CustomerController@my_orders')->name('my_orders');
     Route::get('/view_order/{id}', 'Customer\CustomerController@viewOrder');
     Route::get('notify', 'Customer\CustomerController@notify');
     Route::post('/add-to-cart', 'Frontend\CartController@addProduct');
@@ -80,8 +85,6 @@ Route::middleware(['verified','auth'])->group(function()
     Route::get('/cities/{province_id}', 'Frontend\CheckoutController@getCities');
     Route::post('/place-order', 'Frontend\CheckoutController@placeOrder');
 
-<<<<<<< Updated upstream
-=======
     
     Route::post('pay', [PaymentController::class, 'pay'])->name('payment');
     Route::get('/view-payment', [PaymentController::class, 'view'])->name('view-payment');
@@ -102,5 +105,4 @@ Route::middleware(['verified','auth'])->group(function()
 
     //review
     Route::post('/post-review', 'Frontend\FrontendController@postReview');
->>>>>>> Stashed changes
 });

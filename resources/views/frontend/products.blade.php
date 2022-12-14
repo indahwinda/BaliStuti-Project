@@ -21,19 +21,17 @@
                             <h3>Shop by Price</h3>
                         </div>
                         <div class="widget-content shop-by-price">
-                            <form method="post" action="/rangePirce">
-                                <div class="price-filter">
-                                    <div class="price-filter-inner">
-                                        <div id="slider-range"></div>
-                                        <div class="price_slider_amount">
-                                            <div class="label-input">
-                                                <input type="text" id="amount" name="price"
-                                                    placeholder="Add Your Price" />
-                                                <button type="submit">Filter</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <form method="post" action="/filter_price">
+                                @csrf   
+                                <div class="form-group">
+                                    <label for="price">Start Price (Rp):</label>
+                                    <input type="number" class="form-control" name="min" placeholder="Min Price">
+
+                                    <label for="price ">End Price (Rp):</label>
+                                    <input type="number" class="form-control" name="max" placeholder="Max Price">
+
                                 </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -69,11 +67,11 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="products-top">
-                            <div class="products-top-inner">
+                            <div class="products-top-inner mb-4">
                                 <div class="products-found">
                                     <p>Showing <span>{{$product->count()}}</span> products out of <span>{{$product->total()}}</span></p>
                                 </div>
-                                <div class="products-sort">
+                                {{-- <div class="products-sort">
                                     <span>Sort By : </span>
                                     <select>
                                         <option>Default</option>
@@ -81,7 +79,7 @@
                                         <option>Recent</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
-<<<<<<< Updated upstream
-=======
    public function __construct()
    { 
       // IDR to USD rate
@@ -30,7 +28,6 @@ class CustomerController extends Controller
       }
       
    }
->>>>>>> Stashed changes
    public function index()
    {
     $active = "dashboard";
@@ -46,7 +43,8 @@ class CustomerController extends Controller
       $active = "my_orders";
       $title= "My Orders";
       $orders = Order::where('user_id', auth()->user()->id)->get();
-      return view('customer.my_orders.index', compact('orders', 'title', 'active'));
+      $USD = $this->val;
+      return view('customer.my_orders.index', compact('orders', 'title', 'active', 'USD'));
    }
 
    public function my_custom()
@@ -64,9 +62,6 @@ class CustomerController extends Controller
       $title= "My Orders";
       return view('customer.my_orders.view', compact('orders', 'title', 'active'));
    }
-<<<<<<< Updated upstream
-=======
 
 
->>>>>>> Stashed changes
 }
