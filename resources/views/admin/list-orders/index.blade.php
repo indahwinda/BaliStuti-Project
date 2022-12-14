@@ -26,6 +26,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$order->id}}</td>
                             <td>
+<<<<<<< Updated upstream
                                 @if($order->status == 0)
                                     <span class="badge badge-sm bg-gradient-warning">Pending</span>
                                 @elseif($order->status == 1)
@@ -36,6 +37,41 @@
                                     <span class="badge badge-sm bg-gradient-info">Shipped</span>
                                 @elseif ($order->status == 5)
                                     <span class="badge badge-sm bg-gradient-primary">Delivered</span>
+=======
+                                {{-- <span class="badge badge-sm bg-gradient-warning">{{$order->status}}</span> --}}
+                                @if ($order->status == '0')
+                                    <span class="badge badge-sm bg-gradient-warning">Pending</span>
+                                @elseif($order->status == '1') 
+                                    <span class="badge badge-sm bg-gradient-success">
+                                        Confirmed
+                                    </span>
+                                @elseif($order->status == '3')
+                                    <span class="badge badge-sm bg-gradient-danger">Canceled</span>
+                                @elseif ($order->status == '4')
+                                    <span class="badge badge-sm bg-gradient-info">Shipped</span>
+                                @elseif ($order->status == '5')
+                                    <span class="badge badge-sm bg-gradient-success">Delivered</span>
+                                @else
+                                    <span class="badge badge-sm bg-gradient-warning">Pending</span>
+
+                                @endif
+                            </td>
+                            <td>
+                                @if (!empty($order->payment->payment_status))
+                                    @if ($order->payment->payment_status == 'approved')
+                                        <span class="badge badge-sm bg-gradient-success">Approved</span>
+                                    @elseif($order->payment->payment_status == null)
+                                        <span class="badge badge-sm bg-gradient-warning">Pending</span>
+                                    @elseif($order->payment->payment_status == 3)
+                                        <span class="badge badge-sm bg-gradient-danger">Cancelled</span>
+                                    @elseif ($order->payment->payment_status == 4)
+                                        <span class="badge badge-sm bg-gradient-info">Shipped</span>
+                                    @elseif ($order->payment->payment_status == 5)
+                                        <span class="badge badge-sm bg-gradient-primary">Delivered</span>
+                                    @endif
+                                @else
+                                    <span class="badge badge-sm bg-gradient-warning">Pending</span>
+>>>>>>> Stashed changes
                                 @endif
                             </td>
                             <td>{{$order->tracking_no}}</td>

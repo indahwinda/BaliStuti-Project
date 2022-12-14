@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\AdminMiddleware;
+use App\Models\CustomProduct;
 use App\Models\Order;
 use App\Models\User;
 use App\Notifications\UserOrderNotification;
@@ -12,6 +13,24 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
+<<<<<<< Updated upstream
+=======
+   public function __construct()
+   { 
+      // IDR to USD rate
+      $apikey = env('CURRENCY_API_KEY');
+      try {
+         $json = file_get_contents("https://free.currconv.com/api/v7/convert?q=IDR_USD&compact=ultra&apiKey=$apikey");
+         //if failed to get data from api, use default rate
+      
+         $obj = json_decode($json, true);
+         $this->val = floatval($obj["IDR_USD"]);
+      } catch (\Throwable $th) {
+         $this->val = 0.000071;
+      }
+      
+   }
+>>>>>>> Stashed changes
    public function index()
    {
     $active = "dashboard";
@@ -29,6 +48,15 @@ class CustomerController extends Controller
       $orders = Order::where('user_id', auth()->user()->id)->get();
       return view('customer.my_orders.index', compact('orders', 'title', 'active'));
    }
+
+   public function my_custom()
+   {
+      $active = "my_custom";
+      $title= "My Custom Orders";
+      $customs = CustomProduct::where('user_id', auth()->user()->id)->get();
+      $USD = $this->val;
+      return view('customer.my_custom.index', compact('customs', 'title', 'active', 'USD'));
+   }
    public function viewOrder($id)
    {
       $orders = Order::where('id', $id)->where('user_id', Auth::id())->first();
@@ -36,4 +64,9 @@ class CustomerController extends Controller
       $title= "My Orders";
       return view('customer.my_orders.view', compact('orders', 'title', 'active'));
    }
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 }

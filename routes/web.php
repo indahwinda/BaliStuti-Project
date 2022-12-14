@@ -50,6 +50,16 @@ Route::middleware(['verified','auth','isAdmin'])->group(function()
     Route::post('/mark-as-read', 'Admin\FrontendController@markNotification')->name('markNotification');
     Route::post('/update-profile', 'Admin\ProfileCompanyController@updateProfile');
     Route::post('/update-company', 'Admin\ProfileCompanyController@updateCompany');
+<<<<<<< Updated upstream
+=======
+    Route::get('/history', 'Admin\HistoryController@index');
+
+    Route::get('/list-customs', 'Admin\CustomProductController@index');
+
+    //update status custom product
+    Route::post('/update-custom', 'Admin\CustomProductController@updateLink');
+    Route::post('/update-custom-status', 'Admin\CustomProductController@updateStatus');
+>>>>>>> Stashed changes
 });
 
 Route::middleware(['verified','auth'])->group(function()
@@ -70,4 +80,27 @@ Route::middleware(['verified','auth'])->group(function()
     Route::get('/cities/{province_id}', 'Frontend\CheckoutController@getCities');
     Route::post('/place-order', 'Frontend\CheckoutController@placeOrder');
 
+<<<<<<< Updated upstream
+=======
+    
+    Route::post('pay', [PaymentController::class, 'pay'])->name('payment');
+    Route::get('/view-payment', [PaymentController::class, 'view'])->name('view-payment');
+    Route::get('success', [PaymentController::class, 'success']);
+    Route::get('error',[PaymentController::class, 'error']);
+
+    Route::get('/checkoutPay/{order}', 'Frontend\CheckoutController@checkoutPay');
+    Route::post('transaction', [TransactionController::class, 'transaction'])->name('transaction');
+    Route::get('transaction/{reference}', [TransactionController::class, 'show'])->name('transaction.show');
+
+    Route::get('wishlist',  [WishlistController::class, 'index']);
+
+    // custom product
+    Route::post('/request-product', 'Frontend\CustomProductController@store');
+    
+    //list
+    Route::get('/my-custom',  'Customer\CustomerController@my_custom');
+
+    //review
+    Route::post('/post-review', 'Frontend\FrontendController@postReview');
+>>>>>>> Stashed changes
 });

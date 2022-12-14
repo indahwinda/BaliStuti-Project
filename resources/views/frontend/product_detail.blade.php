@@ -135,19 +135,76 @@
                                     <p>{{$product->description}}</p>
                                 </div>
                                 <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                                    <div class="review-form">
-                                        <h3>Write a review</h3>
-                                        <form>
-                                            <div class="form-group">
-                                                <label>Your Name</label>
-                                                <input type="text" class="form-control"/>
+                                    {{-- Reveiw section --}}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 class="card-title
+                                                    ">Reviews</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        @foreach ($reviews as $review)
+                                                        {{-- User reviewer --}}
+                                                        <div class="col-md-2 text-center">
+                                                            <img src="{{asset('assets/img_profile/'.$review->user->img_profile)}}" alt="" class="img-fluid rounded-circle">
+                                                            <small >
+                                                                <a href="#"><strong>
+                                                                    @if ($review->user_id==null)
+                                                                    {{$review->name}}
+                                                                    @else
+                                                                    {{$review->user->name}}
+                                                                    @endif    
+                                                                </strong></a>
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <div class="clearfix"></div>
+                                                            <p>
+                                                                {{
+                                                                    $review->message
+                                                                }}
+                                                            </p>
+                                                            <p>
+                                                                <small class="text-muted
+                                                                ">
+                                                                    <i class="fa fa-clock-o"></i>
+                                                                    {{
+                                                                        $review->created_at->diffForHumans()
+                                                                    }}
+                                                                </small>
+                                                            </p>
+                                                        </div>
+                                                        @endforeach
+                                                        {{-- If empty review --}}
+                                                        @if ($reviews->isEmpty())
+                                                        <div class="col-md-12">
+                                                            <p class="text-center">No reviews yet</p>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
+                                        </div>
+                                    
+                                    <div class="col-md-6">
+                                        @if (Auth::check() && $purchased && !$reviewed )
+                                        <h3>Write a review</h3>
+                                        <form action="/post-review" method="post" >
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
                                             <div class="form-group">
                                                 <label>Your Review</label>
-                                                <textarea cols="4" class="form-control"></textarea>
+                                                <textarea cols="4" class="form-control" name="message"></textarea>
                                             </div>
                                             <button type="submit" class="btn btn-ascend1">Submit</button>
                                         </form>
+                                        @elseif (Auth::check() && $reviewed)
+                                        <h5 class="text-center">Thank you</h5>
+                                        <p class="text-center">You have already reviewed this product</p>
+                                        <img src="{{asset('assets/img/thanks-review.png')}}" alt="" class="img-fluid w-10">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
