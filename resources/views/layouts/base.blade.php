@@ -17,7 +17,7 @@
     <link href="{{ asset('frontend/css/nucleo-svg.css') }}" rel="stylesheet" />
 
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/e105a59079.js" crossorigin="anonymous"></script>
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
@@ -32,6 +32,8 @@
     @yield('content')
     </main>
 
+    {{ \TawkTo::widgetCode() }}
+
     <!-- Script  -->
     <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}" defer></script>
     <!--   Core JS Files   -->
@@ -44,6 +46,20 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('frontend/js/material-dashboard.min.js?v=3.0.0') }}"></script>
   <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}" defer></script>
+  <!--Start of Tawk.to Script-->
+  
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6381cccbb0d6371309d13145/1gipgfvfr';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
   @yield('scripts')
 </body>
 </html>

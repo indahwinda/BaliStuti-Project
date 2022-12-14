@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Payment\TripayController;
 use App\Models\Cart;
 use App\Models\City;
 use App\Models\Order;
@@ -92,7 +93,7 @@ class CheckoutController extends Controller
         $order->courier = $request->input('courier');
         $order->courier_ongkos = $request->input('courier_ongkos');
         $order->total = $request->input('total_orders');
-        $order->tracking_no = 'stuti'.rand(1111,9999);
+        $order->tracking_no = 'stuti'.uniqid();
         $order->save();    
         
 
@@ -129,13 +130,24 @@ class CheckoutController extends Controller
                 'body' => 'Order Confirmation',
                 // 'url' => url('my-order/'.$order->id),
             ];
-
+            $request->session()->put('order',$order->id );
             \Mail::to(auth()->user()->email)->send(new \App\Mail\EmailNotif($details));
     
         }
         return response()->json(['success' => 'Order Successfully Placed']);
     }
-    
 
-    
+    public function checkoutPay(Order $order)
+    {
+        $tripay = new TripayController();
+        $channels= $tripay->getPaymentChannels();
+        if(empty($order->payment))
+        {
+            return view('frontend.checkout-pay', compact('order', 'channels'));
+        }
+        else
+        {
+            return redirect('my-orders')->with('error', 'Transaction already exists, cannot change the payment method');
+        }
+    }
 }
